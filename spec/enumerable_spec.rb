@@ -1,4 +1,5 @@
-load './lib/main.rb'
+require_relative 'spec_helper.rb'
+load '../lib/main.rb'
 
 RSpec.describe Enumerable do
     let(:test_array_1) { [10, 40, 80, 160, 320] }
@@ -18,8 +19,8 @@ RSpec.describe Enumerable do
     end
   
     describe "#my_all?" do
-      it "check if every element is higher than 5" do
-        expect(test_array_1.my_all? {|i| i > 5}).to eql(false)
+      it "check if every element is higher than 10" do
+        expect(test_array_1.my_all? {|i| i > 10}).to eql(false)
       end
   
       it "check if every element inside the array is a String" do
@@ -37,7 +38,7 @@ RSpec.describe Enumerable do
   
     describe "#my_select" do
       it "returns an array containing elements that satisfy the condition" do
-        expect(test_array_1.select {|i| i > 10} ).to eql([11])
+        expect(test_array_1.select {|i| i > 100} ).to eql([160,320])
       end
     end
   
