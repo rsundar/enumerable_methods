@@ -1,15 +1,22 @@
 module enumerable
     
     def my_each
-        for i in self
-            yield(i)
+        if block_given?
+            for i in self
+                yield(i)
+            end
+        else
+            raise "Error: No block given!"
         end
     end
 
     def my_each_with_index
-        for i in 0...self.length-1
-            yield(self[i],i)
-        end
+        if block_given?
+            for i in 0...self.length-1
+                yield(self[i],i)
+            end
+        else
+            raise "Error: No block given!"
     end
 
     def my_map
@@ -34,9 +41,21 @@ module enumerable
         result
     end
 
-    def my_inject
+    def my_inject?(arg=nil)
     end
 
     def my_all
+    end
+    
+    def my_none?(arg=nil)
+        if block_given?
+            self.my_each{|i| return false if(yield(i))}
+        elsif arg.class == Class
+            self.my_each{|i| return false if i.class == arg}
+        elsif arg.class == Regexp
+            self.my_each{|i| return false unless (i =~ Regexp).nil?}
+        elsif arg.nil?
+            self.my_each{|i| return false if i}
+        end
     end
 end
