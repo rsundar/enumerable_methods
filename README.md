@@ -26,4 +26,4 @@ From the project root directory run `rspec`
 
 ## Contributors
 
-- Rohan Sundar (github)[https://www.github.com/rsundar]
+- Rohan Sundar [github](https://www.github.com/rsundar)
