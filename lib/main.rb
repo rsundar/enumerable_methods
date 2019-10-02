@@ -5,18 +5,22 @@ module Enumerable
                 yield(i)
             end
         else
-            raise "Error: No block given!"
+            return self.to_enum
         end
     end
 
     def my_each_with_index
+        result = []
         if block_given?
-            for i in 0...self.length-1
-                yield(self[i],i)
+            for i in 0...self.length
+                result << yield(self[i],i)
             end
         else
-            raise "Error: No block given!"
+            for i in 0...self.length
+                result << "#{i}:#{self[i]}"
+            end
         end
+        result.to_enum
     end
 
     def my_map
