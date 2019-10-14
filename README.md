@@ -14,6 +14,10 @@ This project involves creating my own implementation of the `Enumerable` module 
 
 The new methods are added onto the existing Enumerable module.
 
+## Technologies Used
+
+- Ruby 
+
 ## Installation
 
 1. Start the interactive ruby console, using the command `irb`
