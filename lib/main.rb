@@ -5,18 +5,22 @@ module Enumerable
                 yield(i)
             end
         else
-            raise "Error: No block given!"
+            return self.to_enum
         end
     end
 
     def my_each_with_index
+        result = []
         if block_given?
-            for i in 0...self.length-1
-                yield(self[i],i)
+            for i in 0...self.length
+                result << yield(self[i],i)
             end
         else
-            raise "Error: No block given!"
+            for i in 0...self.length
+                result << "#{i}:#{self[i]}"
+            end
         end
+        result.to_enum
     end
 
     def my_map
@@ -26,7 +30,7 @@ module Enumerable
                 result.push(yield(self[i]))
             end
         else
-            raise "Error: Please provide a block!"
+            return self.to_enum
         end
         result
     end
@@ -36,7 +40,7 @@ module Enumerable
         if block_given?
             self.my_each {|i| result.push(i) if(yield(i))}
         else
-            raise "Error: Please provide a block!"
+            return self.to_enum
         end
         result
     end
@@ -64,7 +68,7 @@ module Enumerable
 
     def my_all?(arg=nil)
         if block_given?
-            self.my_each{|i| return false if(yield(i))}
+            self.my_each{|i| return true if(yield(i))}
         elsif arg.class == Class
             self.my_each{|i| return false unless i.class == arg}
         elsif arg.class == Regexp
@@ -77,10 +81,12 @@ module Enumerable
         true
     end
     
-    def my_count
+    def my_count(arg=nil)
         count = 0
         if block_given?
             self.my_each {|i| count+=1 if(yield(i))}
+        elsif arg != nil
+            self.my_each {|i| count+=1 if(i==arg)}
         else
             self.my_each {|i| count+=1}
         end
